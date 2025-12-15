@@ -33,7 +33,7 @@
 - Open your terminal and pull project on main branch into your laptop or PC.
 
 ```sh
-$ git pull https://github.com/TienMinh25/instagram_clone.git
+$ git pull https://github.com/duykhanh8386/Instagram_clone.git
 ```
 
 **NOTE:**
@@ -92,13 +92,7 @@ $ docker-compose down
 - That's so easy, right 😆😚😎
 - Open your browser, and type http://localhost:80
 
-# Future Improvements (Planned)
-# Author:
 
-```
-Name: Lê Văn Tiến Minh
-Gmail: letienminh2512@gmail.com
-```
 
 # Summary: 🥀🥀🥀
 
