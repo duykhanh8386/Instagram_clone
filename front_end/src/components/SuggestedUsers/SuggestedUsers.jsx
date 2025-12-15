@@ -101,13 +101,13 @@ function SuggestedUsers() {
       )}
 
       <Box fontSize={12} color={'gray.500'} mt={5} alignSelf={'start'}>
-        © 2024 Built By{' '}
+        © 2025 Built By{' '}
         <Link
           href="https://www.facebook.com/profile.php?id=100005211045138"
           target="_blank"
           color="blue.500"
           fontSize={14}>
-          Tiến Minh
+          Duy Khánh
         </Link>
       </Box>
     </VStack>

@@ -78,41 +78,50 @@ const editUser = async (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
     }
 };
-
 const searchUser = async (req, res) => {
-    const tag_name = req.body.search;
-    const userId = parseInt(req.body.userId);
+    const keyword = (req.body.search || "").trim();
+    const userId = parseInt(req.body.userId, 10);
 
     try {
-        const data = await db.User.findAll({
-            where: {
-                name_tag: {
-                    [Op.like]: `%${tag_name}%`,
-                },
-                id: {
-                    [Op.ne]: userId,
-                },
+        // luôn loại chính mình ra
+        const whereClause = {
+            id: {
+                [Op.ne]: userId,
             },
+        };
+
+        // nếu có từ khóa thì search trên cả username + name_tag
+        if (keyword) {
+            whereClause[Op.or] = [
+                {
+                    username: {
+                        [Op.like]: `%${keyword}%`,
+                    },
+                },
+                {
+                    name_tag: {
+                        [Op.like]: `%${keyword}%`,
+                    },
+                },
+            ];
+        }
+
+        const users = await db.User.findAll({
+            where: whereClause,
             attributes: {
-                include: [
-                    [
-                        db.sequelize.literal(`(
-                        SELECT count(*)
-                        from user_follows
-                        where user_follows.targetId = User.id
-                        )`),
-                        "followerCount",
-                    ],
-                ],
                 exclude: ["passwordHash"],
             },
+            order: [["username", "ASC"]],
         });
 
-        return res.status(200).json(data);
+        return res.status(200).json(users);
     } catch (error) {
-        return res.status(500).json({ message: error.message });
+        console.error("searchUser error:", error);
+        return res.status(500).json({ message: "Cannot search users" });
     }
 };
+
+
 
 const getFollower = async (req, res) => {};
 

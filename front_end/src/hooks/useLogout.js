@@ -1,5 +1,8 @@
 const useLogout = () => {
-  const handleLogout = () => {};
+
+  const handleLogout = async (e) => {
+  };
+
 
   return { handleLogout };
 };
